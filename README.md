@@ -26,6 +26,7 @@ A feltöltés szintén regisztrációhoz kötött, továbbá ellenőrzöttnek ke
 * **Karbantarthatóság** - logikus mappa szerkezet a későbbi bővítésre esetleges szűkítésre
 * **Teljesítmény** - az előnézeti képek jól megvalósítása, a gyorsabb működéshez
 
+
 ##### 1.2 Szakterületi fogalomjegyzék
 
 
@@ -34,11 +35,13 @@ A feltöltés szintén regisztrációhoz kötött, továbbá ellenőrzöttnek ke
 
 **Előnézeti kép**: ebben az esetben az eredeti kép kicsinyített változata a jobb átláthatóság és gyorsabb működés érdekében.
 
+
 ##### 1.3 Szerepkörök
 **Vendég**: háttérképek keresését, az oldal publikus részét szabad böngészését, háttérképek letöltését végezheti
 
 
 **Felhasználó**: a *Vendég* szerepkörön túl lehetősége van a saját háttérképeinek megosztására (feltöltés), törlésére, az oldalon levő (nem saját) háttérképek értékelésére
+
 
 ##### 1.4 Használatieset-modell
 ![Szerepkörök](images/use_case.png)
