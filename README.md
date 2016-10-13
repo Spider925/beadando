@@ -8,14 +8,14 @@ ___
 Az oldal célja egy olyan rendszer megvalósítása, melyen háttérképek böngészése, 
 letöltése, értékelése valamint feltöltése lenne elérhető.
 A háttérképek kategóriákra bontva jelennének meg, melyek között szabadon lehet böngészni továbbá a letöltés is lehetséges.
-Az értékeléshez a felhaszánlónak regisztrálnia kell az oldalon valamint minden képet csak egyszer lehessen értékelni.
+Az értékeléshez a felhasználónak regisztrálnia kell az oldalon valamint minden képet csak egyszer lehessen értékelni.
 A feltöltés szintén regisztrációhoz kötött, továbbá ellenőrzöttnek kell lennie, hogy például biztosan a megfelelő kategóriába kerüljön és megfeleljen az általános direktíváknak.  
 
 ###### Funkcionális Követelmények
 * Regisztráció
 * Bejelentkezés
 * Letöltés
-* Csak bejelentkezett felhaszánlónak elérhető
+* Csak bejelentkezett felhasználónak elérhető
     - Új kép feltöltése
     - Saját kép törlése
     - Értékelés
@@ -27,11 +27,17 @@ A feltöltés szintén regisztrációhoz kötött, továbbá ellenőrzöttnek ke
 * **Teljesítmény** - az előnézeti képek jól megvalósítása, a gyorsabb működéshez
 
 ##### 1.2 Szakterületi fogalomjegyzék
+
+
 **Háttérkép**: olyan kép, fotó, melyeket a képernyő (kijelző) háttereként szoktunk használni.
+
+
 **Előnézeti kép**: ebben az esetben az eredeti kép kicsinyített változata a jobb átláthatóság és gyorsabb működés érdekében.
 
 ##### 1.3 Szerepkörök
 **Vendég**: háttérképek keresését, az oldal publikus részét szabad böngészését, háttérképek letöltését végezheti
+
+
 **Felhasználó**: a *Vendég* szerepkörön túl lehetősége van a saját háttérképeinek megosztására (feltöltés), törlésére, az oldalon levő (nem saját) háttérképek értékelésére
 
 ##### 1.4 Használatieset-modell
