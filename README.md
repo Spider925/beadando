@@ -15,10 +15,10 @@ A feltöltés szintén regisztrációhoz kötött, továbbá ellenőrzöttnek ke
 * Regisztráció
 * Bejelentkezés
 * Letöltés
-* Csak bejelentkezett felhaszánlónak elérhető:
-- Új kép feltöltése
-- Saját kép törlése
-- Értékelés
+* Csak bejelentkezett felhaszánlónak elérhető
+    - Új kép feltöltése
+    - Saját kép törlése
+    - Értékelés
 
 ###### Nem funkcionális Követelmények
 * Könnyű kezelés - áttekinthetőség - kategóriánkénti csoportosítás - rendezési lehetőség 
