@@ -1,7 +1,6 @@
 # Dokumentáció
 
 ### Kardos Gergő
-### FM7AUC
 ___
 
 #### 1. Követelmények
@@ -26,4 +25,4 @@ A feltöltés szintén regisztrációhoz kötött, továbbá ellenőrzöttnek ke
 * Megbízhatóság - jelszóval védett tartalom - a jelszavak biztonságos kezelése - hibás adatok esetén érthető figyelmeztetés
 * Karbantarthatóság - logikus mappa szerkezet a későbbi bővítésre esetleges szűkítésre
 
-  
+
