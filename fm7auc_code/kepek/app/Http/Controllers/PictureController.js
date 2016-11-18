@@ -27,7 +27,6 @@ class PictureController {
             response.notFound('Ez a kép nincs az adatbázisban')
             return
         }
-        console.log(picture)
         yield response.sendView('showPicture', {
             picture: picture.toJSON()
         });
