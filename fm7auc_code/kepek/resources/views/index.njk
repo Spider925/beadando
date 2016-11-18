@@ -1,0 +1,27 @@
+{% extends 'layout' %}
+
+
+{% block content %}
+<h2>{{ name }}</h2>
+<div class="row">
+  {% for category in categories %}
+  <div class="col-md-4 col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{ category.name }}
+        <span class="label label-warning pull-right">Összes megtekintése</span>
+      </div>
+      <ul class="list-group">
+        {% for picture in category.topPictures %}
+        <li class="list-group-item">
+          <a href="/picture/{{ picture.name }}">
+            <img border="0" src="images/{{ picture.name }}.png" width="50%" height="50%">
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endfor %}
+</div> 
+{% endblock %}
