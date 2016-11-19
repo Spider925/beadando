@@ -524,8 +524,8 @@
                 }
             },
             {
-                "name": "rate",
-                "verbose": "rate",
+                "name": "rate_positive",
+                "verbose": "rate_positive",
                 "control": {
                     "text": true
                 },
@@ -540,24 +540,8 @@
                 }
             },
             {
-                "name": "width",
-                "verbose": "width",
-                "control": {
-                    "text": true
-                },
-                "type": "integer",
-                "allowNull": false,
-                "defaultValue": null,
-                "listview": {
-                    "show": true
-                },
-                "editview": {
-                    "show": true
-                }
-            },
-            {
-                "name": "height",
-                "verbose": "height",
+                "name": "rate_negative",
+                "verbose": "rate_negative",
                 "control": {
                     "text": true
                 },
