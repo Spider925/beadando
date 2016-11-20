@@ -135,6 +135,12 @@ class PictureController {
         var filePath = Helpers.publicPath('images/'+name+'.png'); 
         //console.log(filePath)
         fs.unlinkSync(filePath);
+        var id = yield Database.from('pictures').where('name', name).pluck('id')
+            if (yield Vote.findBy('picture_id', id[0])) {
+                    const picturevote = yield Vote.findBy('picture_id', id[0])
+                    yield picturevote.delete()
+            }
+            
         yield picture.delete()
 
         response.redirect('/')
