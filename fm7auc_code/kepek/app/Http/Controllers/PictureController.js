@@ -5,6 +5,7 @@ const Category = use('App/Model/Category')
 const Picture = use('App/Model/Picture')
 const Validator = use('Validator')
 const Helpers = use('Helpers')
+const User = use('App/Model/User')
 
 class PictureController {
 
@@ -12,11 +13,10 @@ class PictureController {
         const categories = yield Category.all()
         
         for (let category of categories) {
-            const topPictures = yield category.pictures().limit(3).fetch()
+            const topPictures = yield category.pictures().limit(9).fetch()
             category.topPictures = topPictures.toJSON()
 
         }
-
         yield response.sendView('index', {
             categories: categories.toJSON()
         });
@@ -25,12 +25,28 @@ class PictureController {
     * show (request, response) {
         const name = request.param('name')
         const picture = yield Picture.findBy('name', name)
+         const categories = yield Category.all()
         if (!picture) {
             response.notFound('Ez a kép nincs az adatbázisban')
             return
         }
+
         yield response.sendView('showPicture', {
-            picture: picture.toJSON()
+            picture: picture.toJSON(),
+            categories: categories.toJSON()
+        });
+    }
+
+    * categoryShow (request, response) {
+        const id = request.param('id')
+        const pictures = yield Picture.query().where('category_id', id);
+        const category = yield Category.query().where('id', id)
+        const categories = yield Category.all()
+        //console.log(category)
+        yield response.sendView('showCategory', {
+            pictures,
+            category,
+            categories: categories.toJSON()
         });
     }
 
@@ -71,10 +87,10 @@ class PictureController {
         
         pictureData.rate_positive = 0
         pictureData.rate_negative = 0
-        pictureData.user_id = 1
+        pictureData.user_id = request.currentUser.id
 
         //console.log(pictureData)
-        //yield Picture.create(pictureData)
+        yield Picture.create(pictureData)
         // és akkor jött ez -.-'
         const pictureFile = request.file('filename', {
             maxSize: '4mb',
@@ -82,13 +98,29 @@ class PictureController {
         })
         const fileName = pictureData.name + ".png"
         //console.log(fileName)
-        yield pictureFile.move(Helpers.storagePath('images'), fileName)
+        yield pictureFile.move(Helpers.publicPath('images'), fileName)
         if (!pictureFile.moved()) {
             response.badRequest(pictureFile.errors())
             return
         }
-        respone.ok("Sikeres feltöltés")
+        response.redirect('/')
 
+    }
+
+    * delete (request, response) {
+        const name = request.param('name')
+        const picture = yield Picture.findBy('name', name)
+        if (!picture) {
+            response.notFound('Ez a kép nincs az adatbázisban')
+            return
+        }
+        var fs = require('fs');
+        var filePath = Helpers.publicPath('images/'+name+'.png'); 
+        //console.log(filePath)
+        fs.unlinkSync(filePath);
+        yield picture.delete()
+
+        response.redirect('/')
     }
 
 

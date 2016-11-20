@@ -46,13 +46,14 @@
     <div class="form-group">
 
         <div class="col-lg-10 col-lg-offset-2">
-            <input type="file" name="filename" accept=".png" class="btn btn-info">
-            <p>Csak PNG kiterjesztésű kép tölthető fel</p>
+            <input type="file" name="filename" accept=".png" class="btn btn-info" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+            <p>Csak PNG kiterjesztésű kép tölthető fel. (max 4mb)</p>
         </div>
 
       <div class="col-lg-10 col-lg-offset-2">
         <button type="reset" class="btn btn-default">Cancel</button>
         <button type="submit" class="btn btn-primary">Submit</button>
+         <img id="blah" border="0" class="img-responsive" src="">
       </div>
     </div>
 </form>

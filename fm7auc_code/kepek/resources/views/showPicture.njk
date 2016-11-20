@@ -4,12 +4,13 @@
 <div class="col-md-12 col-sm-6">
     <img border="0" class="img-responsive" src="/images/{{ picture.name }}.png">
     <div class="btn-group btn-group-justified">
-  <a href="#" class="btn btn-warning">Törlés</a>
+  {% if currentUser.id == picture.user_id %}
+  <a href="{{picture.name}}/delete" class="btn btn-warning">Törlés</a>
+  {% endif %}
   <a href="#" class="btn btn-danger">Nem tetszik</a>
   <a href="#" class="btn btn-info">Tetszik</a>
   <a href="/images/{{ picture.name }}.png"  download="{{ picture.name }}" class="btn btn-success">Letöltés</a>
 </div>
 </div>
-
 
 {% endblock %}
