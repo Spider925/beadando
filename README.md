@@ -50,3 +50,75 @@ Egy egyszerű példa bemutatása:
 
 A felhasználó ellátogat az oldalra, ahova már korábban beregisztrált. Bejelentkezik majd úgy dönt,hogy megosztani kívánja egy háttérképét. Az ellenőrzés után megjelenik az oldalon a kép. Amennyiben a kép nem felel meg az elvárásoknak elutasításra kerül a közzététel melyről értesítést kap a feltöltő.
 ![](images/new_bg.png)
+
+#### 2. Tervezés
+
+##### 2.1 Architektúra terv
+
+![Architektúra](images/data_model.png)
+
+##### 2.2 Oldaltérkép
+
+###### Publikus
+* Főoldal
+* Bejelentkezés
+* Regisztráció
+* böngészése
+
+###### bejelentkezett
+* Új kép feltöltése
+* Kép(ek) értékelés
+* Saját kép(ek) törlése
+
+##### 2.3 Végpontok
+
+* GET/: Főoldal
+
+* GET/picture/name: Kép megtekintése
+* GET/category/id: Kategórián belül minden kép megtekintése
+* GET/uploads: Felhasználó által feltöltött képek
+* GET/picture/name/upvote: Kép pozitív értékelése
+* GET/picture/name/downvote: Kép negatív értékelése
+* GET/upload: Kép feltöltése
+* POST/upload: Kép adatainak felküldése
+* GET/picture/name/delete: Kép törlése
+* GET/register: Regisztráció
+* POST/register: Regisztrációhoz szükséges adatok felküldése
+* GET/login: Bejelentkezés
+* POST/login: Bejelentkezéshez szükséges adatok felküldése
+* GET/logout: Kijelenetkezés
+
+##### 2.4 Design
+
+Főoldal
+
+![Főoldal](images/index.png)
+
+Regisztráció
+
+![Regisztráció](images/reg.png)
+
+Bejelentkezés
+
+![Bejelentkezés](images/login.png)
+
+Új kép feltöltése
+
+![Új kép feltöltés](images/newpic.png)
+
+Saját képek
+
+![Saját képek](images/uploads.png)
+
+Kategória nézet
+
+![Kategória nézet](images/category.png)
+
+Kép megtekintése/értékelése/törlése/letöltése
+
+![Kép megtekintése](images/showpic.png)
+
+##### 2.5 Adatbázis-modell
+
+![Adatbázis](images/database.png)
+
