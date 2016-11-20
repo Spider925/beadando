@@ -9,7 +9,7 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">{{ category.name }}
-        <span class="label label-warning pull-right">Összes megtekintése</span></h3>
+        <a href="/category/{{ category.id }}"><span class="label label-warning pull-right">Összes megtekintése</span></a></h3>
       </div>
       <div class="panel-body" align="center">
         {% for picture in category.topPictures %}
@@ -18,15 +18,6 @@
           </a>
         {% endfor %}
         </div>
-      <!--<ul class="list-group">
-        {% for picture in category.topPictures %}
-        <li class="list-group-item">
-          <a href="/picture/{{ picture.name }}">
-            <img border="0" src="/images/{{ picture.name }}.png" width="50%" height="50%">
-          </a>
-        </li>
-        {% endfor %}
-      </ul>-->
     </div>
   </div>
   {% endfor %}

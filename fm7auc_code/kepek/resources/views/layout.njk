@@ -55,6 +55,7 @@
           <ul class="nav navbar-nav navbar-right">
             {% if currentUser %}
             <li class="navbar-text">Üdv, {{ currentUser.username }}!</li>
+            <li><a href="/uploads">Feltöltéseid</a></li>
             <li><a href="/upload">Kép feltöltés</a></li>
             <li><a href="/logout">Kilépés</a></li>
             {% else %}

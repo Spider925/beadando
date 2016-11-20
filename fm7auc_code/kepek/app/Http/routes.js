@@ -7,6 +7,10 @@ Route.get('/', 'PictureController.index')
 
 Route.get('picture/:name', 'PictureController.show')
 Route.get('category/:id', 'PictureController.categoryShow')
+Route.get('uploads', 'PictureController.userpicturesShow')
+
+Route.get('picture/:name/upvote', 'PictureController.upvote')
+Route.get('picture/:name/downvote', 'PictureController.downvote')
 
 Route.get('upload', 'PictureController.upload')
 Route.post('upload', 'PictureController.doUpload')
