@@ -1,5 +1,10 @@
 {% extends 'layout' %}
 
+{% block scripts %}
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+   <script src="/scripts/fileupload.js"></script>
+{% endblock %}
+
 {% block content %}
 
 <h2>Új kép feltöltése</h2>
@@ -20,19 +25,20 @@
 {% endif %}
 
 
-<form class="form-horizontal" enctype="multipart/form-data" method="post">
+<form class="form-horizontal" enctype="multipart/form-data" method="post" data-toggle="validator">
     {{ csrfField }}
-  <div class="form-group">
+  <div class="form-group has-feedback">
       <label for="name" class="col-lg-2 control-label">Adj címet a képnek</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="name" name="name" maxlength="20" placeholder="A kép címe"
+        <input  required type="text" class="form-control" id="name" name="name" maxlength="20" placeholder="A kép címe"
         value="{{ old('name') }}">
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group has-feedback has-error has-danger">
       <label for="category_id" class="col-lg-2 control-label">Kategória</label>
       <div class="col-lg-10">
-        <select class="form-control" id="category_id" name="category_id">
+        <select required class="form-control" id="category_id" name="category_id">
+          <option selected disabled>Válassz kategóriát</option>
           {% for category in categories %}
             <option value="{{ category.id }}" 
                 {% if category.id == old('category.id') %} 
@@ -43,17 +49,17 @@
         </select>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group has-feedback">
 
         <div class="col-lg-10 col-lg-offset-2">
-            <input type="file" name="filename" accept=".png" class="btn btn-info" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+            <input  required type="file" id="fileid" name="filename" accept=".png" class="btn btn-danger" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
             <p>Csak PNG kiterjesztésű kép tölthető fel. (max 4mb)</p>
         </div>
 
       <div class="col-lg-10 col-lg-offset-2">
         <button type="reset" class="btn btn-default">Cancel</button>
         <button type="submit" class="btn btn-primary">Submit</button>
-         <img id="blah" border="0" class="img-responsive" src="">
+         <img id="preview" border="0" class="img-responsive" src="">
       </div>
     </div>
 </form>

@@ -27,20 +27,29 @@ class PictureController {
     * show (request, response) {
         const name = request.param('name')
         const picture = yield Picture.findBy('name', name)
-        const categories = yield Category.all()
-        const currentuser = request.currentUser.id
-        const voted = yield Vote.findBy('user_id', currentuser)
 
         if (!picture) {
             response.notFound('Ez a kép nincs az adatbázisban')
             return
         }
 
+        const categories = yield Category.all()
+        if (request.currentUser != null) {
+            const currentuser = request.currentUser.id
+            const voted = yield Vote.query().where('user_id', currentuser).where('picture_id', picture.id)
+            //console.log(voted)
+            yield response.sendView('showPicture', {
+            voted,
+            picture: picture.toJSON(),
+            categories: categories.toJSON()
+        });
+        } else {
         yield response.sendView('showPicture', {
             picture: picture.toJSON(),
-            categories: categories.toJSON(),
-            voted
+            categories: categories.toJSON()
         });
+        }
+        
     }
 
     * categoryShow (request, response) {
@@ -60,7 +69,7 @@ class PictureController {
         const id = request.currentUser.id
         const pictures = yield Picture.query().where('user_id', id)
         const categories = yield Category.all()
-        //console.log(category)
+        //console.log(pictures)
         yield response.sendView('showUploads', {
             pictures,
             categories: categories.toJSON()

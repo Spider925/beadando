@@ -1,5 +1,9 @@
 {% extends 'layout' %}
 
+{% block scripts %}
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+{% endblock %}
+
 {% block content %}
 
 <h2>Regisztráció</h2>
@@ -19,36 +23,37 @@
 </div>
 {% endif %}
 
-<form class="form-horizontal" action="" method="post">
+<form class="form-horizontal" action="" method="post" data-toggle="validator">
 
   {{ csrfField }}
 
-  <div class="form-group">
+  <div class="form-group has-feedback">
     <label for="username" class="col-lg-2 control-label">Felhasználónév</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="username" name="username" placeholder="Felhasználónév"
+      <input required type="text" class="form-control" id="username" name="username" placeholder="Felhasználónév"
         value="{{ old('username') }}">
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-feedback">
     <label for="email" class="col-lg-2 control-label">Email</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="email" name="email" placeholder="Email cím"
+      <input required type="text" class="form-control" id="email" name="email" placeholder="Email cím"
         value="{{ old('email') }}">
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-feedback">
     <label for="password" class="col-lg-2 control-label">Jelszó</label>
     <div class="col-lg-10">
-      <input type="password" class="form-control" id="password" name="password" placeholder="Jelszó"
+      <input required type="password" class="form-control" id="password" name="password" placeholder="Jelszó"
         value="">
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-feedback">
     <label for="password_confirm" class="col-lg-2 control-label">Jelszó újra</label>
     <div class="col-lg-10">
-      <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Jelszó megerősítése"
-        value="">
+      <input required type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Jelszó megerősítése" 
+      data-match="#password" data-match-error="Nem egyeznek a jelszavak" value="">
+      <div class="help-block with-errors"></div>
     </div>
   </div>
 

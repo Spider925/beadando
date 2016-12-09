@@ -7,8 +7,10 @@
   {% if currentUser.id == picture.user_id %}
   <a href="{{picture.name}}/delete" class="btn btn-warning">Törlés</a>
   {% endif %}  
-  <a href="{{picture.name}}/upvote" class="btn btn-info {% if voted.rate_positive == true %}disabled{% endif %}">Tetszik</a>
-  <a href="{{picture.name}}/downvote" class="btn btn-danger {% if voted.rate_negative == true %}disabled{% endif %}">Nem tetszik</a>
+  {% for vote in voted %}
+  <a href="{{picture.name}}/upvote" class="btn btn-info {% if vote.rate_positive == true %}disabled{% endif %}">Tetszik</a>
+  <a href="{{picture.name}}/downvote" class="btn btn-danger {% if vote.rate_negative == true %}disabled{% endif %}">Nem tetszik</a>
+  {% endfor %}
   <a href="/images/{{ picture.name }}.png"  download="{{ picture.name }}" class="btn btn-success">Letöltés</a>
   
 </div>
