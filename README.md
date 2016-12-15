@@ -122,3 +122,32 @@ Kép megtekintése/értékelése/törlése/letöltése
 
 ![Adatbázis](images/database.png)
 
+##### Changes
+
+Client JS and Ajax functions:
+
+Index.njk:
+* On index page there is a counter on panel-headings. It is counting images in each category
+* Also the user can show/hide picture lists under panel-headings. (reminder: by default it shows 9 pictures in each category)
+
+Upload.njk
+* Placed a new validator for input elements including file upload button too (this can be find in a different JS file - fileupload.js -)
+
+Login.njk
+* Placed a new validator for input elements
+
+Register.njk
+* Placed a new validator for input elements
+
+showPicture.njk
+* AJAX method for deleting the image
+* On progress: AJAX method for vote handling
+
+##### Patch Notes
+
+2016.12.15
+Fixed many bug on showPicture.njk:
+* from now on guest users can see pictures
+* Vote buttons works correctly
+* Placed an information text for guests about the vote system
+
