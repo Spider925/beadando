@@ -155,6 +155,26 @@ class PictureController {
         response.redirect('/')
     }
 
+    * ajaxDelete (request, response) {
+        const name = request.param('name')
+        const picture = yield Picture.findBy('name', name)
+        if (!picture) {
+            response.notFound('Ez a kép nincs az adatbázisban')
+            return
+        }
+        var fs = require('fs');
+        var filePath = Helpers.publicPath('images/'+name+'.png');
+        fs.unlinkSync(filePath);
+        var id = yield Database.from('pictures').where('name', name).pluck('id')
+            if (yield Vote.findBy('picture_id', id[0])) {
+                    const picturevote = yield Vote.findBy('picture_id', id[0])
+                    yield picturevote.delete()
+            }
+            
+        yield picture.delete()
+        response.ok({success: true});
+    }
+
     * upvote (request, response) {
         const name = request.param('name')
         var pictureID = yield Database.from('pictures').where('name', name).pluck('id')

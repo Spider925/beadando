@@ -1,20 +1,50 @@
 {% extends 'layout' %}
 
+{% block scripts %}
+<script src="/scripts/delete.js"></script>
+<!--<script src="/scripts/vote.js"></script>-->
+{% endblock %}
+
 {% block content %}
+
 <div class="col-md-12 col-sm-6">
     <img border="0" class="img-responsive" src="/images/{{ picture.name }}.png">
     <div class="btn-group btn-group-justified">
+  {{ csrfField | safe }}
   {% if currentUser.id == picture.user_id %}
-  <a href="{{picture.name}}/delete" class="btn btn-warning">Törlés</a>
+    <a id="btnDelete" href="/picture/{{picture.name}}/delete" class="btn btn-warning">Törlés</a>
   {% endif %}  
+
+  {% if voted == 0 %}
+    <a id="btnUpvote" href="/picture/{{picture.name}}/upvote" class="btn btn-info">Tetszik</a>
+    <a id="btnDownvote" href="/picture/{{picture.name}}/downvote" class="btn btn-danger">Nem tetszik</a>
+  {% else %}
   {% for vote in voted %}
-  <a href="{{picture.name}}/upvote" class="btn btn-info {% if vote.rate_positive == true %}disabled{% endif %}">Tetszik</a>
-  <a href="{{picture.name}}/downvote" class="btn btn-danger {% if vote.rate_negative == true %}disabled{% endif %}">Nem tetszik</a>
+    <a id="btnUpvote" href="/picture/{{picture.name}}/upvote" class="btn btn-info {% if vote.rate_positive == true %}disabled{% endif %}">Tetszik</a>
+    <a id="btnDownvote" href="/picture/{{picture.name}}/downvote" class="btn btn-danger {% if vote.rate_negative == true %}disabled{% endif %}">Nem tetszik</a>
   {% endfor %}
+  {% endif %}
   <a href="/images/{{ picture.name }}.png"  download="{{ picture.name }}" class="btn btn-success">Letöltés</a>
   
 </div>
-<h4>Értékelés aránya:</h4>
+  {% if currentUser.id == picture.user_id %}
+  <div class="modal fade confirm-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+                Biztosan törölni szeretnéd?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success modal-ok" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-danger modal-cancel" data-dismiss="modal">Mégse</button>
+            </div>
+          </div>
+      </div>
+    </div>
+    <span class="help-block"></span>
+  {% endif %}  
+<h4>Értékelés aránya </h4>
+{% if currentUser.id == null%}<h5>(csak regisztrált felhasználó szavazhat)</h5>{% endif %}
 {% if picture.rate_positive == 0 and picture.rate_negative == 0 %}
   <h4> Még nem érkezett értékelés
 {% else %}
