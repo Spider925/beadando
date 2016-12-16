@@ -28,4 +28,7 @@ Route.get('/logout', 'UserController.doLogout')
 
 Route.group('ajax', function () {
   Route.delete('/picture/:name/delete', 'PictureController.ajaxDelete').middleware('auth')
+  Route.post('/login', 'UserController.ajaxLogin')
+  Route.get('picture/:name/upvote', 'PictureController.ajaxUpvote')
+  Route.get('picture/:name/downvote', 'PictureController.ajaxDownvote')
 }).prefix('/ajax')

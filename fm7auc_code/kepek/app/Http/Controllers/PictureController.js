@@ -218,6 +218,50 @@ class PictureController {
 
         response.redirect('back')       
     }
+
+    * ajaxUpvote (request, response) {
+        const name = request.param('name')
+        var pictureID = yield Database.from('pictures').where('name', name).pluck('id')
+        // ellenőrizzük,hogy szavazott-e már a felhasználó
+        // bár a gomb inaktív a kép alatt, de védjük magunkat a kicsi k***i hackerektől :)
+       if (yield Vote.findBy('picture_id', pictureID[0])) {
+            // ha igen, nézzük meg,hogy mire
+            const voted = yield Database.from('pictures').where('name', name).pluck('rate_positive')
+            // ha a pozitív szavazatot adott korábban is akkor ne csináljunk semmit
+            if(voted[0]) {
+                response.ok({success: true});
+                return
+            }
+            // ha negatív volt eddig, akkor változtassuk meg a táblában a szavazatot
+            yield Database.from('votes').where('picture_id', pictureID[0]).update('rate_positive', true)
+            yield Database.from('votes').where('picture_id', pictureID[0]).update('rate_negative', false)
+            // csökkentsük a negatív szavazatokat eggyel
+            var picture = yield Database.from('pictures').where('name', name).pluck('rate_negative')
+            var num = picture[0] - 1
+            yield Database.from('pictures').where('name', name).update('rate_negative', num)
+            // növeljük a pozitív szavazatot eggyel
+            var picture = yield Database.from('pictures').where('name', name).pluck('rate_positive')
+            var num = picture[0] + 1
+            yield Database.from('pictures').where('name', name).update('rate_positive', num)
+
+            response.ok({success: true});
+            return            
+        }
+        // ha még nem szavazott a képre a felhasználó akkor növeljük a pozitív szavazatot
+        var picture = yield Database.from('pictures').where('name', name).pluck('rate_positive')
+        var num = picture[0] + 1
+        yield Database.from('pictures').where('name', name).update('rate_positive', num)
+        // valamint adjuk hozzá, a szavazatokat összegző táblához 
+        const voteData = {
+            rate_positive: true,
+            rate_negative: false,
+            user_id: request.currentUser.id,
+            picture_id: pictureID[0]
+        }
+        yield Vote.create(voteData)
+
+        response.ok({success: true}); 
+    }
     
     * downvote (request, response) {
         const name = request.param('name')
@@ -261,6 +305,50 @@ class PictureController {
         yield Vote.create(voteData)
 
         response.redirect('back')       
+    }
+
+    * ajaxDownvote (request, response) {
+        const name = request.param('name')
+        var pictureID = yield Database.from('pictures').where('name', name).pluck('id')
+        // ellenőrizzük,hogy szavazott-e már a felhasználó
+        // bár a gomb inaktív a kép alatt, de védjük magunkat a kicsi k***i hackerektől :)
+       if (yield Vote.findBy('picture_id', pictureID[0])) {
+            // ha igen, nézzük meg,hogy mire
+            const voted = yield Database.from('pictures').where('name', name).pluck('rate_negative')
+            // ha a negatív szavazatot adott korábban is akkor ne csináljunk semmit
+            if(voted[0]) {
+                response.ok({success: true});
+                return
+            }
+            // ha pozitív volt eddig, akkor változtassuk meg a táblában a szavazatot
+            yield Database.from('votes').where('picture_id', pictureID[0]).update('rate_positive', false)
+            yield Database.from('votes').where('picture_id', pictureID[0]).update('rate_negative', true)
+            // csökkentsük a pozitív szavazatokat eggyel
+            var picture = yield Database.from('pictures').where('name', name).pluck('rate_positive')
+            var num = picture[0] - 1
+            yield Database.from('pictures').where('name', name).update('rate_positive', num)
+            // növeljük a negatív szavazatot eggyel
+            var picture = yield Database.from('pictures').where('name', name).pluck('rate_negative')
+            var num = picture[0] + 1
+            yield Database.from('pictures').where('name', name).update('rate_negative', num)
+
+            response.ok({success: true});
+            return            
+        }
+        // ha még nem szavazott a képre a felhasználó akkor növeljük a negatív szavazatot
+        var picture = yield Database.from('pictures').where('name', name).pluck('rate_negative')
+        var num = picture[0] + 1
+        yield Database.from('pictures').where('name', name).update('rate_negative', num)
+        // valamint adjuk hozzá, a szavazatokat összegző táblához 
+        const voteData = {
+            rate_positive: false,
+            rate_negative: true,
+            user_id: request.currentUser.id,
+            picture_id: pictureID[0]
+        }
+        yield Vote.create(voteData)
+
+        response.ok({success: true});     
     }
 
 }

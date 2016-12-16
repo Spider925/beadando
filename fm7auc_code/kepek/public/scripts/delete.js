@@ -38,7 +38,7 @@ $('#btnDelete').on('click', function (e) {
   my_confirm('Biztos törölni akarod?').then(response => {
     if (response) {
       const url = '/ajax' + $(this).attr('href')
-      //console.log($(this).attr('href'))
+      //console.log(url)
       ajaxDelete(url)
         .then(data => {
           location.assign('/')

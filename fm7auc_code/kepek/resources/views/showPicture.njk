@@ -2,14 +2,14 @@
 
 {% block scripts %}
 <script src="/scripts/delete.js"></script>
-<!--<script src="/scripts/vote.js"></script>-->
+<script src="/scripts/vote.js"></script>
 {% endblock %}
 
 {% block content %}
 
 <div class="col-md-12 col-sm-6">
     <img border="0" class="img-responsive" src="/images/{{ picture.name }}.png">
-    <div class="btn-group btn-group-justified">
+    <div id="btnGroup" class="btn-group btn-group-justified">
   {{ csrfField | safe }}
   {% if currentUser.id == picture.user_id %}
     <a id="btnDelete" href="/picture/{{picture.name}}/delete" class="btn btn-warning">Törlés</a>
@@ -44,11 +44,11 @@
     <span class="help-block"></span>
   {% endif %}  
 <h4>Értékelés aránya </h4>
-{% if currentUser.id == null%}<h5>(csak regisztrált felhasználó szavazhat)</h5>{% endif %}
+{% if currentUser.id == null%}<h5 id="voteinfo">(csak regisztrált felhasználó szavazhat)</h5>{% endif %}
 {% if picture.rate_positive == 0 and picture.rate_negative == 0 %}
   <h4> Még nem érkezett értékelés
 {% else %}
-<div class="progress"> 
+<div id="progressbar" class="progress"> 
   <div class="progress-bar progress-bar-info" style="width: {{ picture.rate_positive/( (picture.rate_positive + picture.rate_negative)/100)  }}%"><b>Pozitív</b></div>
   <div class="progress-bar progress-bar-danger" style="width: {{ picture.rate_negative/( (picture.rate_positive + picture.rate_negative)/100)  }}%"><b>Negatív</b></div>
 </div>

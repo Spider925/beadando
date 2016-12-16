@@ -71,9 +71,27 @@ class UserController {
         }
     }
 
+    * ajaxLogin (request, response) {
+        const username = request.input('username')
+        const password = request.input('password')
+
+    try {
+      const login = yield request.auth.attempt(username, password) 
+
+      if (login) {
+        response.ok({ success: true })
+        return
+      }
+    }
+    catch (err) {
+      response.ok({ success: false })
+      return
+    }
+    }
+
     * doLogout (request, response) {
         yield request.auth.logout()
-        response.redirect('/')
+        response.redirect('back')
     }
 }
 
